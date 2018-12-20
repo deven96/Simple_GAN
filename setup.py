@@ -1,3 +1,16 @@
+"""Setup file for Adversarial package.
+   @author
+     Domnan Diretnan
+     Artificial Intelligence Enthusiast & Python Developer
+     Email: diretnandomnan@gmail.com 
+     GitHub: https://github.com/deven96
+   @project
+     File: setup.py
+   @license
+     MIT License
+     Copyright (c) 2018. Domnan Diretnan. All rights reserved.
+"""
+
 import os
 import sys
 import setuptools
@@ -15,8 +28,8 @@ VERSION = "0.0.1"
 setuptools.setup(
     name="Adversarials",
     version=VERSION,
-    author='Domnan Diretnan',
-    author_email="diretnandomnan@gmail.com",
+    author='Domnan Diretnan, Victor Afolabi',
+    author_email="diretnandomnan@gmail.com, javafolabi@gmail.com",
     description="easy wrapper for initializing several GAN networks in keras",
     url="https://github.com/deven96/Simple_GAN",
     packages=setuptools.find_packages(),
