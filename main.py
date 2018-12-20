@@ -1,3 +1,19 @@
+"""Quick test for SimpleGAN.
+
+   @author
+     Victor I. Afolabi
+     Artificial Intelligence Expert & Software Engineer.
+     Email: javafolabi@gmail.com | victor.afolabi@zephyrtel.com
+     GitHub: https://github.com/victor-iyiola
+
+   @project
+     File: main.py
+     Created on 20 December, 2018 @ 07:03 PM.
+
+   @license
+     MIT License
+     Copyright (c) 2018. Victor I. Afolabi. All rights reserved.
+"""
 import numpy as np
 from keras.datasets import mnist
 
