@@ -22,7 +22,7 @@ from abc import ABCMeta
 from typing import Iterable
 from logging.config import fileConfig
 
-from adversarials.core import FS, LOGGER
+from adversarials.core.consts import FS, LOGGER
 
 __all__ = [
     'File', 'Log',
@@ -60,7 +60,7 @@ class File(metaclass=ABCMeta):
 
             if verbose:
                 # Feedback based on verbosity.
-                Log.info('"{}" has been created.'.format(path))
+                Log.info('"{}" has been created.'.format(os.path.relpath(path)))
 
     @staticmethod
     def get_dirs(path: str, exclude: Iterable[str] = None, optimize: bool = False):

@@ -11,7 +11,8 @@ from keras.layers import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout
 
-from adversarials.core import ModelBase, Log, FS
+from adversarials.core.utils import Log, FS
+from adversarials.core.base import ModelBase
 
 import numpy as np
 
@@ -57,6 +58,7 @@ class SimpleGAN(ModelBase):
         Raises:
             TypeError: Expected one of int, tuple - Got `type(size)`.
         """
+        super(SimpleGAN, self).__init__(**kwargs)
 
         if isinstance(size, tuple):
             self.width, self.height = size
@@ -74,14 +76,20 @@ class SimpleGAN(ModelBase):
                                     Adam(lr=0.0002, beta_1=0.5, decay=8e-8))
         self.save_interval = kwargs.get('save_interval', 100)
 
+        self._log('Compiling generator.', level='info')
         # Generator Network.
+        self.G = self.__generator()
         self.G.compile(loss='binary_crossentropy', optimizer=self.optimizer)
 
+        self._log('Compiling discriminator.', level='info')
         # Discriminator Network.
+        self.D = self.__discriminator()
         self.D.compile(loss='binary_crossentropy',
-                       optimizer=self.optimizer, metrics=['accuracy'])
+                       optimizer=self.optimizer,
+                       metrics=['accuracy'])
 
         # Stacked model.
+        self._log('Combining generator & Discriminator', level='info')
         self._model = self.__stacked_generator_discriminator()
         self._model.compile(loss='binary_crossentropy',
                             optimizer=self.optimizer)
@@ -93,27 +101,29 @@ class SimpleGAN(ModelBase):
             X_train[np.array]: full set of images to be used
         """
 
-        for cnt in range(self.epochs):
-
+        half_batch = self.batch_size // 2
+        for cnt in range(epochs):
             # get legits and syntethic images to be used in training discriminator
-            random_index = np.random.randint(0, len(X_train) - self.batch/2)
-            legit_images = X_train[random_index: random_index + self.batch / 2]\
-                .reshape(self.batch/2, self.width, self.height, self.channels)
-            gen_noise = np.random.normal(0, 1, (self.batch/2, 100))
+            random_index = np.random.randint(0,
+                                             len(X_train) - half_batch)
+            self._log('Random Index: {}'.format(random_index))
+            legit_images = X_train[random_index: random_index + half_batch]\
+                .reshape(half_batch, self.width, self.height, self.channels)
+            gen_noise = np.random.normal(0, 1, (half_batch, 100))
             syntetic_images = self.G.predict(gen_noise)
 
             # combine synthetics and legits and assign labels
             x_combined_batch = np.concatenate((legit_images, syntetic_images))
-            y_combined_batch = np.concatenate((np.ones((self.batch/2, 1)),
-                                               np.zeros((self.batch/2, 1))))
+            y_combined_batch = np.concatenate((np.ones((half_batch, 1)),
+                                               np.zeros((half_batch, 1))))
 
-            d_loss = self.D.train_on_self.batch(x_combined_batch,
-                                                y_combined_batch)
+            d_loss = self.D.train_on_batch(x_combined_batch,
+                                           y_combined_batch)
 
             # train generator (discriminator training is false by default)
 
-            noise = np.random.normal(0, 1, (self.batch, 100))
-            y_mislabled = np.ones((self.batch, 1))
+            noise = np.random.normal(0, 1, (self.batch_size, 100))
+            y_mislabled = np.ones((self.batch_size, 1))
 
             g_loss = self._model.train_on_batch(noise,
                                                 y_mislabled)
@@ -212,7 +222,9 @@ class SimpleGAN(ModelBase):
         model.add(Dense((self.width * self.height * self.channels),
                         input_shape=self.shape))
         model.add(LeakyReLU(alpha=0.2))
-        model.add(Dense((self.width * self.height * self.channels)/2))
+        model.add(Dense(256))
+        model.add(LeakyReLU(alpha=0.2))
+        model.add(Dense(128))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dense(1, activation='sigmoid'))
         model.summary()
@@ -249,25 +261,25 @@ class SimpleGAN(ModelBase):
 
         return self._model
 
-    @property
-    def G(self):
-        """Generator model.
+    # @property
+    # def G(self):
+    #     """Generator model.
 
-        Returns:
-            keras.model.Model: Generator model.
-        """
+    #     Returns:
+    #         keras.model.Model: Generator model.
+    #     """
 
-        return self.__generator()
+    #     return self.__generator()
 
-    @property
-    def D(self):
-        """Discriminator model.
+    # @property
+    # def D(self):
+    #     """Discriminator model.
 
-        Returns:
-            keras.model.Model: Discriminator model.
-        """
+    #     Returns:
+    #         keras.model.Model: Discriminator model.
+    #     """
 
-        return self.__discriminator()
+    #     return self.__discriminator()
 
 
 if __name__ == '__main__':

@@ -17,7 +17,9 @@
 import os.path
 
 from abc import ABCMeta, abstractmethod
-from adversarials.core import File, FS
+
+from adversarials.core.utils import File, Log
+from adversarials.core.consts import FS
 
 class _Base(object):
     def __init__(self, *args, **kwargs):
@@ -65,8 +67,8 @@ class _Base(object):
         if level.lower() not in _levels:
             raise ValueError("`level` must be one of {}".format(_levels))
 
-        # Call the appropriate log level, eg: LogUtils.info(*args, **kwargs)
-        eval(f'LogUtils.{level.lower()}(*args, **kwargs)')
+        # Call the appropriate log level, eg: Log.info(*args, **kwargs)
+        eval(f'Log.{level.lower()}(*args, **kwargs)')
 
     # noinspection PyMethodMayBeStatic
     def _get_args(self):
@@ -75,8 +77,6 @@ class _Base(object):
         return []
 
     def _get_kwargs(self):
-        # names = ('overwrite', 'sub_dirs', 'verbose', 'version')
-        # return [(name, getattr(self, f'_{name}')) for name in names]
         return sorted([(k.lstrip('_'), getattr(self, f'{k}'))
                        for k in self.__dict__.keys()])
 
@@ -95,7 +95,7 @@ class ModelBase(_Base, metaclass=ABCMeta):
 
         # Extract Keyword arguments.
         self._cache_dir = kwargs.get('cache_dir',
-                                     os.path.join(FS.ModelSavedDir.base, self._name))
+                                     os.path.join(FS.MODEL_DIR, self._name))
         # Create cache directory if it doesn't exist.
         File.make_dirs(self._cache_dir, verbose=self._verbose)
 
