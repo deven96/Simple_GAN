@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
 
-class GAN(object):
+class SimpleGAN(object):
     """ Generative Adversarial Network class """
     def __init__(self, width=28, height=28, channels=1, epochs=20000, 
                 savetofile=False, optimizer = Adam(lr=0.0002, beta_1=0.5, decay=8e-8),
@@ -165,5 +165,5 @@ if __name__ == '__main__':
     X_train = np.expand_dims(X_train, axis=3)
 
 
-    gan = GAN()
+    gan = SimpleGAN()
 gan.train(X_train)
