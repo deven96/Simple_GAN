@@ -3,8 +3,6 @@
 """
 from typing import Union, Tuple
 
-import numpy as np
-
 
 from keras.datasets import mnist
 from keras.optimizers import Adam
@@ -13,22 +11,31 @@ from keras.layers import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout
 
+from adversarials.core import ModelBase, Log, FS
+
+import numpy as np
+
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
 
-class SimpleGAN:
+class SimpleGAN(ModelBase):
     """Simple Generative Adversarial Network.
 
     Methods:
-        def train(self):
+        def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs)
+
+        def train(self, X_train, epochs: int=10):
+
+        def plot_images(self, samples: int=16, step:int=0):
+            # Plot generated images
 
     Attributes:
-        model:
-        shape:
-
+        G (keras.model.Model): Generator model.
+        D (keras.model.Model): Discriminator model.
+        model (keras.model.Model): Combined G & D model.
+        shape (Tuple[int]): Input image shape.
     """
-
 
     def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs):
         """def __init__(size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs)
@@ -44,8 +51,6 @@ class SimpleGAN:
         Keyword Args:
             optimizer (keras.optimizer.Optimizer, optional): Defaults to Adam
                 with learning rate of 1e-3, beta_1=0.5, decay = 8e-8.
-            save_to_file (bool, optional): Defaults to False. Save generated images
-                to file.
             save_interval (int, optional): Defaults to 100. Interval of training on
                 which to save generated images.
 
@@ -67,15 +72,12 @@ class SimpleGAN:
         # Extract keyword arguments.
         self.optimizer = kwargs.get('optimizer',
                                     Adam(lr=0.0002, beta_1=0.5, decay=8e-8))
-        self.save_to_file = kwargs.get('save_to_file', False)
         self.save_interval = kwargs.get('save_interval', 100)
 
         # Generator Network.
-        self.G = self.__generator()
         self.G.compile(loss='binary_crossentropy', optimizer=self.optimizer)
 
         # Discriminator Network.
-        self.D = self.__discriminator()
         self.D.compile(loss='binary_crossentropy',
                        optimizer=self.optimizer, metrics=['accuracy'])
 
@@ -83,6 +85,88 @@ class SimpleGAN:
         self._model = self.__stacked_generator_discriminator()
         self._model.compile(loss='binary_crossentropy',
                             optimizer=self.optimizer)
+
+    def train(self, X_train, epochs: int=10):
+        """
+            Train function to be used after GAN initialization
+
+            X_train[np.array]: full set of images to be used
+        """
+
+        for cnt in range(self.epochs):
+
+            # get legits and syntethic images to be used in training discriminator
+            random_index = np.random.randint(0, len(X_train) - self.batch/2)
+            legit_images = X_train[random_index: random_index + self.batch / 2]\
+                .reshape(self.batch/2, self.width, self.height, self.channels)
+            gen_noise = np.random.normal(0, 1, (self.batch/2, 100))
+            syntetic_images = self.G.predict(gen_noise)
+
+            # combine synthetics and legits and assign labels
+            x_combined_batch = np.concatenate((legit_images, syntetic_images))
+            y_combined_batch = np.concatenate((np.ones((self.batch/2, 1)),
+                                               np.zeros((self.batch/2, 1))))
+
+            d_loss = self.D.train_on_self.batch(x_combined_batch,
+                                                y_combined_batch)
+
+            # train generator (discriminator training is false by default)
+
+            noise = np.random.normal(0, 1, (self.batch, 100))
+            y_mislabled = np.ones((self.batch, 1))
+
+            g_loss = self._model.train_on_batch(noise,
+                                                y_mislabled)
+
+            self._log(('Epoch: {:,}, [Discriminator :: d_loss: {:.4f}],'
+                       '[Generator :: loss: {:.4f}]')
+                      .format(cnt, d_loss[0], g_loss))
+
+            if cnt % self.save_interval == 0:
+                self.plot_images(step=cnt)
+
+    def call(self, n: int=1, dim: int=100):
+        """Inference method. Given a random latent sample. Generate an image.
+
+        Args:
+            samples (int, optional): Defaults to 1. Number of images to
+                be generated.
+            dim (int, optional): Defaults to 100. Noise dimension.
+
+        Returns:
+            np.ndarray: Array-like generated images.
+        """
+        noise = np.random.normal(0, 1, size=(n, dim))
+        return self.G.predict(noise)
+
+    def plot_images(self, samples=16, step=0, save_to_file: bool=False):
+        """ Plot and generate images
+
+            samples (int, optional): Defaults to 16. Noise samples to generate.
+            step (int, optional): Defaults to 0. Number of training step currently.
+            save_to_file (bool, optional): Defaults to False. Save generated images
+                to file.
+        """
+        filename = "./simple_gan/generated_{}.png".format(step)
+
+        # Generate images.
+        images = self.call(samples)
+
+        plt.figure(figsize=(10, 10))
+
+        for i in range(images.shape[0]):
+            plt.subplot(4, 4, i+1)
+            image = images[i, :, :, :]
+            image = np.reshape(image, [self.height, self.width])
+            plt.imshow(image, cmap='gray')
+            plt.axis('off')
+        plt.tight_layout()
+
+        if save_to_file:
+            plt.savefig(filename)
+            plt.close('all')
+        else:
+            plt.show()
 
     def __generator(self):
         """Generator sequential model architecture.
@@ -145,78 +229,45 @@ class SimpleGAN:
 
         return model
 
-    def train(self, X_train, epochs: int=10):
-        """
-            Train function to be used after GAN initialization
-
-            X_train[np.array]: full set of images to be used
-        """
-
-        for cnt in range(self.epochs):
-
-            # get legits and syntethic images to be used in training discriminator
-            random_index = np.random.randint(0, len(X_train) - self.batch/2)
-            legit_images = X_train[random_index: random_index + self.batch /
-                                   2].reshape(self.batch/2, self.width, self.height, self.channels)
-            gen_noise = np.random.normal(0, 1, (self.batch/2, 100))
-            syntetic_images = self.G.predict(gen_noise)
-
-            # combine synthetics and legits and assign labels
-            x_combined_batch = np.concatenate((legit_images, syntetic_images))
-            y_combined_batch = np.concatenate(
-                (np.ones((self.batch/2, 1)), np.zeros((self.batch/2, 1))))
-
-            d_loss = self.D.train_on_self.batch(
-                x_combined_batch, y_combined_batch)
-
-            # train generator (discriminator training is false by default)
-
-            noise = np.random.normal(0, 1, (self.batch, 100))
-            y_mislabled = np.ones((self.batch, 1))
-
-            g_loss = self._model.train_on_batch(
-                noise, y_mislabled)
-
-            print('epoch: %d, [Discriminator :: d_loss: %f], [ Generator :: loss: %f]' % (
-                cnt, d_loss[0], g_loss))
-
-            if cnt % self.save_interval == 0:
-                self.plot_images(step=cnt)
-
-    def plot_images(self, samples=16, step=0):
-        """ Plot and generate images
-
-            samples[int]: noise samples to generate
-            step[int]: number of training step currently
-        """
-        filename = "./simple_gan/generated_%d.png" % step
-        noise = np.random.normal(0, 1, (samples, 100))
-
-        images = self.G.predict(noise)
-
-        plt.figure(figsize=(10, 10))
-
-        for i in range(images.shape[0]):
-            plt.subplot(4, 4, i+1)
-            image = images[i, :, :, :]
-            image = np.reshape(image, [self.height, self.width])
-            plt.imshow(image, cmap='gray')
-            plt.axis('off')
-        plt.tight_layout()
-
-        if self.savetofile:
-            plt.savefig(filename)
-            plt.close('all')
-        else:
-            plt.show()
-
     @property
     def shape(self):
+        """Input image shape.
+
+        Returns:
+            Tuple[int]: image shape.
+        """
+
         return self.width, self.height, self.channels
 
     @property
     def model(self):
+        """Stacked generator-discriminator model.
+
+        Returns:
+            keras.model.Model: Combined G & D model.
+        """
+
         return self._model
+
+    @property
+    def G(self):
+        """Generator model.
+
+        Returns:
+            keras.model.Model: Generator model.
+        """
+
+        return self.__generator()
+
+    @property
+    def D(self):
+        """Discriminator model.
+
+        Returns:
+            keras.model.Model: Discriminator model.
+        """
+
+        return self.__discriminator()
 
 
 if __name__ == '__main__':
