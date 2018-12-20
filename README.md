@@ -18,4 +18,4 @@ Setting up a Generative Adversarial Network involves having a discriminator and 
 
 - [Understanding Generative Adversarial Networks](https://towardsdatascience.com/understanding-generative-adversarial-networks-4dafc963f2ef) - Noaki Shibuya
 - [Github Keras Gan](https://github.com/osh/KerasGAN)
-- [Improved wgan](https://github.com/keras-team/keras-contrib/blob/master/examples/improved_wgan.py) - Keras team
+- [Simple gan](https://github.com/daymos/simple_keras_GAN/blob/master/gan.py)
