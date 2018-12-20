@@ -1,62 +1,87 @@
 """ Class implementations of different architectures of a
-    Generative Adversarial Neural Network 
+    Generative Adversarial Neural Network
 """
+from typing import Union, Tuple
 
 import numpy as np
 
 
 from keras.datasets import mnist
-from keras.layers import Input, Dense, Reshape, Flatten, Dropout
+from keras.optimizers import Adam
+from keras.models import Sequential
 from keras.layers import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
-from keras.models import Sequential
-from keras.optimizers import Adam
+from keras.layers import Input, Dense, Reshape, Flatten, Dropout
 
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
 
-class SimpleGAN(object):
+class SimpleGAN:
     """ Generative Adversarial Network class """
-    def __init__(self, width=28, height=28, channels=1, epochs=20000, 
-                savetofile=False, optimizer = Adam(lr=0.0002, beta_1=0.5, decay=8e-8),
-                batch = 32, save_interval = 100):
-        """
-            Initializes class
-            width[int]: width
-            height[int]: height
-            channels[int]: number of channels in image
-            epochs[int]: number of epochs to train on
-            savetofile[bool]: save generated images to file
-            optimizer[keras.optimizer]: valid keras optimizer to use
-            batch[int]: batch to group input data
-            save_interval[int]: interval of training on which to save generated image
+
+    def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs):
+        """def __init__(size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs)
+
+        Args:
+            size (int, optional): Defaults to 28. Image size. int tuple
+                consisting of image width and height or int in which case
+                width and height are uniformly distributed.
+            channels (int, optional): Defaults to 1. Image channel.
+                1 - grayscale, 3 - colored.
+            batch_size (int, optional): Defaults to 32. Mini-batch size.
+
+        Keyword Args:
+            optimizer (keras.optimizer.Optimizer, optional): Defaults to Adam
+                with learning rate of 1e-3, beta_1=0.5, decay = 8e-8.
+            save_to_file (bool, optional): Defaults to False. Save generated images
+                to file.
+            save_interval (int, optional): Defaults to 100. Interval of training on
+                which to save generated images.
         """
 
-        self.width = width
-        self.height = height
+        if isinstance(size, tuple):
+            self.width, self.height = size
+        elif isinstance(size, int):
+            self.width, self.height = size, size
+        else:
+            raise TypeError('Expected one of int, tuple. Got {}'
+                            .format(type(size)))
+
         self.channels = channels
-        self.epochs = epochs
-        self.savetofile = savetofile
-        self.optimizer = optimizer
-        self.batch = batch
-        self.save_interval = save_interval
+        self.batch_size = batch_size
 
-        self.shape = (self.width, self.height, self.channels)
+        # Extract keyword arguments.
+        self.optimizer = kwargs.get('optimizer',
+                                    Adam(lr=0.0002, beta_1=0.5, decay=8e-8))
+        self.save_to_file = kwargs.get('save_to_file', False)
+        self.save_interval = kwargs.get('save_interval', 100)
 
+        # Generator Network.
         self.G = self.__generator()
         self.G.compile(loss='binary_crossentropy', optimizer=self.optimizer)
 
+        # Discriminator Network.
         self.D = self.__discriminator()
-        self.D.compile(loss='binary_crossentropy', optimizer=self.optimizer, metrics=['accuracy'])
+        self.D.compile(loss='binary_crossentropy',
+                       optimizer=self.optimizer, metrics=['accuracy'])
 
-        self.stacked_generator_discriminator = self.__stacked_generator_discriminator()
-
-        self.stacked_generator_discriminator.compile(loss='binary_crossentropy', optimizer=self.optimizer)
-
+        # Stacked model.
+        self._model = self.__stacked_generator_discriminator()
+        self._model.compile(loss='binary_crossentropy',
+                            optimizer=self.optimizer)
 
     def __generator(self):
-        """ Declare generator """
+        """Generator sequential model architecture.
+
+        Summary:
+            Dense -> LeakyReLU -> BatchNormalization -> Dense ->
+            LeakyReLU -> BatchNormalization -> Dense -> LeakyReLU ->
+            BatchNormalization -> Dense -> Reshape
+
+        Returns:
+            keras.model.Model: Generator model.
+        """
 
         model = Sequential()
         model.add(Dense(256, input_shape=(100,)))
@@ -68,17 +93,27 @@ class SimpleGAN(object):
         model.add(Dense(1024))
         model.add(LeakyReLU(alpha=0.2))
         model.add(BatchNormalization(momentum=0.8))
-        model.add(Dense(self.width  * self.height * self.channels, activation='tanh'))
+        model.add(Dense(self.width * self.height *
+                        self.channels, activation='tanh'))
         model.add(Reshape((self.width, self.height, self.channels)))
 
         return model
 
     def __discriminator(self):
-        """ Declare discriminator """
+        """Discriminator sequential model architecture.
+
+        Summary:
+            Flatten -> Dense -> LeakyReLU ->
+            Dense -> LeakyReLU -> Dense
+
+        Returns:
+            keras.model.Model: Generator model.
+        """
 
         model = Sequential()
         model.add(Flatten(input_shape=self.shape))
-        model.add(Dense((self.width * self.height * self.channels), input_shape=self.shape))
+        model.add(Dense((self.width * self.height * self.channels),
+                        input_shape=self.shape))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dense((self.width * self.height * self.channels)/2))
         model.add(LeakyReLU(alpha=0.2))
@@ -97,7 +132,7 @@ class SimpleGAN(object):
 
         return model
 
-    def train(self, X_train):
+    def train(self, X_train, epochs: int=10):
         """
             Train function to be used after GAN initialization
 
@@ -106,34 +141,37 @@ class SimpleGAN(object):
 
         for cnt in range(self.epochs):
 
-            ## get legits and syntethic images to be used in training discriminator
+            # get legits and syntethic images to be used in training discriminator
             random_index = np.random.randint(0, len(X_train) - self.batch/2)
-            legit_images = X_train[random_index : random_index + self.batch/2].reshape(self.batch/2, self.width, self.height, self.channels)
+            legit_images = X_train[random_index: random_index + self.batch /
+                                   2].reshape(self.batch/2, self.width, self.height, self.channels)
             gen_noise = np.random.normal(0, 1, (self.batch/2, 100))
             syntetic_images = self.G.predict(gen_noise)
-            
-            #combine synthetics and legits and assign labels
+
+            # combine synthetics and legits and assign labels
             x_combined_batch = np.concatenate((legit_images, syntetic_images))
-            y_combined_batch = np.concatenate((np.ones((self.batch/2, 1)), np.zeros((self.batch/2, 1))))
+            y_combined_batch = np.concatenate(
+                (np.ones((self.batch/2, 1)), np.zeros((self.batch/2, 1))))
 
-            d_loss = self.D.train_on_self.batch(x_combined_batch, y_combined_batch)
-
+            d_loss = self.D.train_on_self.batch(
+                x_combined_batch, y_combined_batch)
 
             # train generator (discriminator training is false by default)
 
             noise = np.random.normal(0, 1, (self.batch, 100))
             y_mislabled = np.ones((self.batch, 1))
 
-            g_loss = self.stacked_generator_discriminator.train_on_batch(noise, y_mislabled)
+            g_loss = self._model.train_on_batch(
+                noise, y_mislabled)
 
-            print ('epoch: %d, [Discriminator :: d_loss: %f], [ Generator :: loss: %f]' % (cnt, d_loss[0], g_loss))
+            print('epoch: %d, [Discriminator :: d_loss: %f], [ Generator :: loss: %f]' % (
+                cnt, d_loss[0], g_loss))
 
             if cnt % self.save_interval == 0:
                 self.plot_images(step=cnt)
 
-
     def plot_images(self, samples=16, step=0):
-        """ Plot and generate images 
+        """ Plot and generate images
 
             samples[int]: noise samples to generate
             step[int]: number of training step currently
@@ -159,6 +197,14 @@ class SimpleGAN(object):
         else:
             plt.show()
 
+    @property
+    def shape(self):
+        return self.width, self.height, self.channels
+
+    @property
+    def model(self):
+        return self._model
+
 
 if __name__ == '__main__':
     (X_train, _), (_, _) = mnist.load_data()
@@ -166,7 +212,6 @@ if __name__ == '__main__':
     # Rescale -1 to 1
     X_train = (X_train.astype(np.float32) - 127.5) / 127.5
     X_train = np.expand_dims(X_train, axis=3)
-
 
     gan = SimpleGAN(epochs=1)
     gan.train(X_train)
