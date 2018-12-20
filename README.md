@@ -2,6 +2,8 @@
 
 This is my attempt to make a wrapper class for a GAN in keras which can be used to abstract the whole architecture process.
 
+[![Build Status](https://travis-ci.com/victor-iyiola/Simple_GAN.svg?branch=master)](https://travis-ci.com/victor-iyiola/Simple_GAN)
+
 - [Simple GAN](#simple-gan)
   - [Overview](#overview)
   - [Flow Chart](#flow-chart)
