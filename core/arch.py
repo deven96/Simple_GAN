@@ -106,10 +106,9 @@ class SimpleGAN(object):
 
         for cnt in range(self.epochs):
 
-            ## train discriminator
+            ## get legits and syntethic images to be used in training discriminator
             random_index = np.random.randint(0, len(X_train) - self.batch/2)
             legit_images = X_train[random_index : random_index + self.batch/2].reshape(self.batch/2, self.width, self.height, self.channels)
-
             gen_noise = np.random.normal(0, 1, (self.batch/2, 100))
             syntetic_images = self.G.predict(gen_noise)
             
@@ -120,7 +119,7 @@ class SimpleGAN(object):
             d_loss = self.D.train_on_self.batch(x_combined_batch, y_combined_batch)
 
 
-            # train generator (discriminator training is false)
+            # train generator (discriminator training is false by default)
 
             noise = np.random.normal(0, 1, (self.batch, 100))
             y_mislabled = np.ones((self.batch, 1))
@@ -170,4 +169,4 @@ if __name__ == '__main__':
 
 
     gan = SimpleGAN(epochs=1)
-gan.train(X_train)
+    gan.train(X_train)
