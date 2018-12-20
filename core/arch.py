@@ -120,7 +120,7 @@ class SimpleGAN(object):
             d_loss = self.D.train_on_self.batch(x_combined_batch, y_combined_batch)
 
 
-            # train generator
+            # train generator (discriminator training is false)
 
             noise = np.random.normal(0, 1, (self.batch, 100))
             y_mislabled = np.ones((self.batch, 1))
@@ -134,7 +134,11 @@ class SimpleGAN(object):
 
 
     def plot_images(self, samples=16, step=0):
-        ''' Plot and generated images '''
+        """ Plot and generate images 
+
+            samples[int]: noise samples to generate
+            step[int]: number of training step currently
+        """
         filename = "./simple_gan/generated_%d.png" % step
         noise = np.random.normal(0, 1, (samples, 100))
 
@@ -165,5 +169,5 @@ if __name__ == '__main__':
     X_train = np.expand_dims(X_train, axis=3)
 
 
-    gan = SimpleGAN()
+    gan = SimpleGAN(epochs=1)
 gan.train(X_train)
