@@ -12,3 +12,4 @@ Setting up an Adversarial network involves having a discriminator and a generato
 ## References
 
 - [Understanding Generative Adversarial Networks](https://towardsdatascience.com/understanding-generative-adversarial-networks-4dafc963f2ef) - Noaki Shibuya
+- [Improved wgan](https://github.com/keras-team/keras-contrib/blob/master/examples/improved_wgan.py) - Keras team
