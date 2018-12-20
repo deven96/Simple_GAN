@@ -290,13 +290,3 @@ class SimpleGAN(ModelBase):
 
     #     return self.__discriminator()
 
-
-if __name__ == '__main__':
-    (X_train, _), (_, _) = mnist.load_data()
-
-    # Rescale -1 to 1
-    X_train = (X_train.astype(np.float32) - 127.5) / 127.5
-    X_train = np.expand_dims(X_train, axis=3)
-
-    gan = SimpleGAN(epochs=1)
-    gan.train(X_train)
