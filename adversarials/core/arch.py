@@ -1,5 +1,14 @@
-""" Class implementations of different architectures of a
-    Generative Adversarial Neural Network
+"""Architecture of SimpleGAN for Adversarial package.
+   @author
+     Domnan Diretnan
+     Artificial Intelligence Enthusiast & Python Developer
+     Email: diretnandomnan@gmail.com 
+     GitHub: https://github.com/deven96
+   @project
+     File: arch.py
+   @license
+     MIT License
+     Copyright (c) 2018. Domnan Diretnan. All rights reserved.
 """
 from typing import Union, Tuple
 
