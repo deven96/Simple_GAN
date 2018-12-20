@@ -18,7 +18,17 @@ plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
 
 class SimpleGAN:
-    """ Generative Adversarial Network class """
+    """Simple Generative Adversarial Network.
+
+    Methods:
+        def train(self):
+
+    Attributes:
+        model:
+        shape:
+
+    """
+
 
     def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs):
         """def __init__(size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, **kwargs)
@@ -38,6 +48,9 @@ class SimpleGAN:
                 to file.
             save_interval (int, optional): Defaults to 100. Interval of training on
                 which to save generated images.
+
+        Raises:
+            TypeError: Expected one of int, tuple - Got `type(size)`.
         """
 
         if isinstance(size, tuple):
