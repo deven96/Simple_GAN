@@ -1,13 +1,13 @@
-# Wasserstein GAN
+# Simple GAN
 
-This is my attempt to make a wrapper class for a WGAN in keras which can be used to abstract the whole architecture process 
+This is my attempt to make a wrapper class for a GAN in keras which can be used to abstract the whole architecture process.
 
-## Simple GAN
+## Overview
 
 ![alt text](assets/mnist_gan.png "GAN network using the MNIST dataset")
 
 
-## Overview
+## Flow Chart
 
 Setting up a Generative Adversarial Network involves having a discriminator and a generator working in tandem with the ultimate goal being that the generator can come up with samples that are indistinguishable from valid samples by the discriminator.
 
