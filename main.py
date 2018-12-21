@@ -29,5 +29,7 @@ if __name__ == '__main__':
 
     Log.info('X_train.shape = {}'.format(X_train.shape))
 
-    gan = SimpleGAN()
-    gan.train(X_train, epochs=1)
+    gan = SimpleGAN( 
+    save_to_dir="./assets/images",
+    save_interval=20)
+    gan.train(X_train, epochs=40)

@@ -10,22 +10,20 @@
      MIT License
      Copyright (c) 2018. Domnan Diretnan. All rights reserved.
 """
-from typing import Union, Tuple
-
-
-from keras.datasets import mnist
-from keras.optimizers import Adam
-from keras.models import Sequential
-from keras.layers import BatchNormalization
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers import Input, Dense, Reshape, Flatten, Dropout
-
-from adversarials.core.utils import Log, FS
-from adversarials.core.base import ModelBase
-
-import numpy as np
+import os
+from typing import Tuple, Union
 
 import matplotlib.pyplot as plt
+import numpy as np
+from adversarials.core.base import ModelBase
+from adversarials.core.utils import FS, File, Log
+from keras.datasets import mnist
+from keras.layers import (BatchNormalization, Dense, Dropout, Flatten, Input,
+                          Reshape)
+from keras.layers.advanced_activations import LeakyReLU
+from keras.models import Sequential
+from keras.optimizers import Adam
+
 plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
 
@@ -63,6 +61,10 @@ class SimpleGAN(ModelBase):
                 with learning rate of 1e-3, beta_1=0.5, decay = 8e-8.
             save_interval (int, optional): Defaults to 100. Interval of training on
                 which to save generated images.
+            save_to_dir (Union[bool, str], optional): Defaults to False. Save generated images
+                to directory.
+            save_model (str, optional): Defaults to False. Save generated images
+                to directory.
 
         Raises:
             TypeError: Expected one of int, tuple - Got `type(size)`.
@@ -83,7 +85,9 @@ class SimpleGAN(ModelBase):
         # Extract keyword arguments.
         self.optimizer = kwargs.get('optimizer',
                                     Adam(lr=0.0002, beta_1=0.5, decay=8e-8))
+        self.save_to_dir = kwargs.get ('save_to_dir', False)
         self.save_interval = kwargs.get('save_interval', 100)
+        self.save_model = kwargs.get('save_model', FS.MODEL_DIR+"/SimpleGAN/model.h5")
 
         self._log('Compiling generator.', level='info')
         # Generator Network.
@@ -111,6 +115,8 @@ class SimpleGAN(ModelBase):
         """
 
         half_batch = self.batch_size // 2
+        if self.save_to_dir:
+            File.make_dirs(self.save_to_dir, verbose=1)
         for cnt in range(epochs):
             # get legits and syntethic images to be used in training discriminator
             random_index = np.random.randint(0,
@@ -143,6 +149,8 @@ class SimpleGAN(ModelBase):
 
             if cnt % self.save_interval == 0:
                 self.plot_images(step=cnt)
+        if self.save_model:
+            self._model.save(self.save_model)
 
     def call(self, n: int=1, dim: int=100):
         """Inference method. Given a random latent sample. Generate an image.
@@ -158,15 +166,13 @@ class SimpleGAN(ModelBase):
         noise = np.random.normal(0, 1, size=(n, dim))
         return self.G.predict(noise)
 
-    def plot_images(self, samples=16, step=0, save_to_file: bool=False):
+    def plot_images(self, samples=16, step=0):
         """ Plot and generate images
 
             samples (int, optional): Defaults to 16. Noise samples to generate.
             step (int, optional): Defaults to 0. Number of training step currently.
-            save_to_file (bool, optional): Defaults to False. Save generated images
-                to file.
         """
-        filename = "./simple_gan/generated_{}.png".format(step)
+        filename = r"{0}/generated_{1}.png".format(self.save_to_dir,step)
 
         # Generate images.
         images = self.call(samples)
@@ -181,7 +187,7 @@ class SimpleGAN(ModelBase):
             plt.axis('off')
         plt.tight_layout()
 
-        if save_to_file:
+        if self.save_to_dir:
             plt.savefig(filename)
             plt.close('all')
         else:
@@ -289,4 +295,3 @@ class SimpleGAN(ModelBase):
     #     """
 
     #     return self.__discriminator()
-
