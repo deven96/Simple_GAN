@@ -21,4 +21,7 @@ deploy:
   provider: pypi
   user: "deven96"
   password: $PYPI_PASSWORD
+  on:
+    tags: true
+
 
