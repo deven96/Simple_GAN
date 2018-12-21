@@ -1,5 +1,5 @@
 .. Adversarials documentation master file, created by
-   sphinx-quickstart on Fri Dec 21 04:07:25 2018.
+   sphinx-quickstart on Fri Dec 21 05:39:38 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 

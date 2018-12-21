@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Adversarials'
-copyright = '2018, Domnan Diretnan, Victor I. Afolabi'
-author = 'Domnan Diretnan, Victor I. Afolabi'
+copyright = '2018, Diretnan Domnan, Victor I. Afolabi'
+author = 'Diretnan Domnan, Victor I. Afolabi'
 
 # The short X.Y version
 version = ''
@@ -40,7 +40,6 @@ release = '1.0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
 ]
@@ -133,7 +132,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Adversarials.tex', 'Adversarials Documentation',
-     'Domnan Diretnan, Victor I. Afolabi', 'manual'),
+     'Diretnan Domnan, Victor I. Afolabi', 'manual'),
 ]
 
 
