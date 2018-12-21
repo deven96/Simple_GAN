@@ -5,17 +5,11 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = source
-BUILDDIR    = ../adversarials-docs
-PDFBUILDDIR = /tmp
-PDF     = ../manual.pdf
+BUILDDIR    = build
 
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
-buildandcommithtml: html
-
-    cd $(BUILDDIR)/html; git add . ; git commit -m "rebuilt docs"; git push origin gh-pages
 
 .PHONY: help Makefile
 

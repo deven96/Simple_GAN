@@ -1,6 +1,8 @@
+#!/bin/bash
+
 cd ./docs
 make html
-cd ../adversarial-docs/html
+cd ./build/html
 git add .
 git commit -m "rebuilt docs"
 git push origin gh-pages
