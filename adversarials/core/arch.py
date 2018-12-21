@@ -63,8 +63,8 @@ class SimpleGAN(ModelBase):
                 which to save generated images.
             save_to_dir (Union[bool, str], optional): Defaults to False. Save generated images
                 to directory.
-            save_model (str, optional): Defaults to False. Save generated images
-                to directory.
+            save_model (str, optional): Defaults to ./assets/models/SimpleGAN/model.h5. 
+                save generated images to directory.
 
         Raises:
             TypeError: Expected one of int, tuple - Got `type(size)`.
