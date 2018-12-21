@@ -16,6 +16,8 @@ install:
 script:
   # - pytest
   - python main.py
+after_success:
+  - docs.sh
 
 deploy:
   provider: pypi

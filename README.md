@@ -9,6 +9,7 @@ This is my attempt to make a wrapper class for a GAN in keras which can be used 
   - [Flow Chart](#flow-chart)
   - [Installation](#installation)
   - [Example](#example)
+  - [Documentation](#documentation)
   - [Credits](#credits)
   - [Contribution](#contribution)
   - [License (MIT)](#license-mit)
@@ -52,6 +53,9 @@ if __name__ == '__main__':
     gan.train(X_train, epochs=40)
 ```
 
+## Documentation
+
+![Github Pages](https://deven96.github.io/Simple_GAN/)
 
 ## Credits
 

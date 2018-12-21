@@ -5,3 +5,4 @@ numpy
 colorlog
 easydict
 pyyaml
+sphinx
