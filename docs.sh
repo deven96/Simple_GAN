@@ -10,4 +10,5 @@ git config --global user.name "Travis CI"
 git add .
 git commit -m "rebuilt docs"
 git checkout -b gh-pages
+git pull -q https://${GITHUB_TOKEN}@github.com/deven96/Simple_GAN.git
 git push -q https://${GITHUB_TOKEN}@github.com/deven96/Simple_GAN.git gh-pages
