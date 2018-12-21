@@ -5,9 +5,8 @@ cd ./Simple_GAN/docs
 sphinx-apidoc -f -o source/ ../adversarials
 make html
 cd ..
-mkdir temp
-cp -rf ./Simple_GAN/docs/html/* temp/
-cd ./Simple_GAN
+mkdir ../temp
+cp -rf ./docs/html/* ../temp/
 git config --global push.default simple
 git config --global user.email "travis@travis-ci.com"
 git config --global user.name "Travis CI"
