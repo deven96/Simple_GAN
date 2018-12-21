@@ -17,7 +17,7 @@ script:
   # - pytest
   - python main.py
 after_success:
-  - docs.sh
+  - ./docs.sh
 
 deploy:
   provider: pypi
