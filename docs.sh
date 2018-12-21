@@ -1,7 +1,6 @@
 #!/bin/bash
 
-git clone https://${GITHUB_TOKEN}@github.com/deven96/Simple_GAN.git
-cd ./Simple_GAN/docs
+cd ./docs
 sphinx-apidoc -f -o source/ ../adversarials
 make html
 cd ..
@@ -10,7 +9,7 @@ cp -Rf ./docs/html/. ../temp
 git config --global push.default simple
 git config --global user.email "travis@travis-ci.com"
 git config --global user.name "Travis CI"
-git checkout gh-pages
+git checkout -b gh-pages
 #remove existing files
 rm -R ./*
 cp -R ../temp/* .
