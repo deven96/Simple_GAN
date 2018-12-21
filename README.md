@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 ## Documentation
 
-![Github Pages](https://deven96.github.io/Simple_GAN/)
+[Github Pages](https://deven96.github.io/Simple_GAN)
 
 ## Credits
 
