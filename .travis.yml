@@ -16,3 +16,9 @@ install:
 script:
   # - pytest
   - python main.py
+
+deploy:
+  provider: pypi
+  user: "deven96"
+  password: $PYPI_PASSWORD
+
