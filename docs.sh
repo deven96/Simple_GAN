@@ -12,7 +12,7 @@ git checkout -b gh-pages
 shopt -s extglob
 rm -r ./!(docs)/
 #copy contents of html to root
-cp -R ./docs/html/ .
+cp -R docs/html ./
 #remove html and accompanying docs  
 rm -r ./docs
 git commit -am "rebuilt docs"
