@@ -6,5 +6,5 @@ make html
 cd ./build/html
 git add .
 git commit -m "rebuilt docs"
-git fetch --unshallow
+git checkout gh-pages
 git push origin gh-pages
