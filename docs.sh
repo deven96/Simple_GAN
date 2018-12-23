@@ -13,8 +13,9 @@ git checkout -b gh-pages
 shopt -s extglob
 rm -r ./!(docs)/
 #copy contents of html to root
-cp -R ${TRAVIS_BUILD_DIR}/docs/build/html ${TRAVIS_BUILD_DIR}/
+cp -R ${TRAVIS_BUILD_DIR}/docs/build/html/. ${TRAVIS_BUILD_DIR}/
 #remove html and accompanying docs  
 rm -r ./docs
+git add .
 git commit -am "rebuilt docs"
 git push -q https://${GITHUB_TOKEN}@github.com/deven96/Simple_GAN.git gh-pages --force
