@@ -13,6 +13,7 @@ This is my attempt to make a wrapper class for a GAN in keras which can be used 
   - [Credits](#credits)
   - [Contribution](#contribution)
   - [License (MIT)](#license-mit)
+  - [Todo](#todo)
 
 ## Overview
 
@@ -74,3 +75,10 @@ Please keep a link to the [original repository](https://github.com/deven96/Simpl
 This project is opened under the [MIT 2.0 License](https://github.com/deven96/Simple_GAN/blob/master/LICENSE) which allows very broad use for both academic and commercial purposes.
 
 A few of the images used for demonstration purposes may be under copyright. These images are included under the "fair usage" laws.
+
+## Todo
+
+- Add view training(discriminator and generator) simultaneously using tensorboard
+- Provision for Parallel data processing and multithreading
+- Saving models to Protobuff files
+- Using TfGraphDef and other things that could speed up training and inference
