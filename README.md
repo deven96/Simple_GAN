@@ -2,7 +2,7 @@
 
 This is my attempt to make a wrapper class for a GAN in keras which can be used to abstract the whole architecture process.
 
-[![Build Status](https://travis-ci.org/deven96/Simple_GAN.svg?branch=master)](https://travis-ci.com/deven96/Simple_GAN)
+[![Build Status](https://travis-ci.org/deven96/Simple_GAN.svg?branch=master)](https://travis-ci.com/deven96/Simple_GAN)[![PyPI version](https://badge.fury.io/py/Adversarials.svg)](https://badge.fury.io/py/Adversarials)
 
 - [Simple GAN](#simple-gan)
   - [Overview](#overview)
