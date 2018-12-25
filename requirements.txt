@@ -1,6 +1,7 @@
 keras
 matplotlib
 tensorflow
+tensorboard
 numpy
 colorlog
 easydict

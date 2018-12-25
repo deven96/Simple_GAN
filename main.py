@@ -31,5 +31,5 @@ if __name__ == '__main__':
 
     gan = SimpleGAN( 
     save_to_dir="./assets/images",
-    save_interval=20)
-    gan.train(X_train, epochs=40)
+    save_interval=5)
+    gan.train(X_train, epochs=20)

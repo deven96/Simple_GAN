@@ -15,6 +15,7 @@ from typing import Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
 from adversarials.core.base import ModelBase
 from adversarials.core.utils import FS, File, Log
 from keras.datasets import mnist
@@ -23,6 +24,7 @@ from keras.layers import (BatchNormalization, Dense, Dropout, Flatten, Input,
 from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Sequential
 from keras.optimizers import Adam
+from time import time
 
 plt.switch_backend('agg')   # allows code to run without a system DISPLAY
 
@@ -65,6 +67,8 @@ class SimpleGAN(ModelBase):
                 to directory.
             save_model (str, optional): Defaults to ./assets/models/SimpleGAN/model.h5. 
                 save generated images to directory.
+            tfhandler(bool, optional): Defaults to True
+                this controls writing to a tensorflow summary file
 
         Raises:
             TypeError: Expected one of int, tuple - Got `type(size)`.
@@ -88,6 +92,12 @@ class SimpleGAN(ModelBase):
         self.save_to_dir = kwargs.get ('save_to_dir', False)
         self.save_interval = kwargs.get('save_interval', 100)
         self.save_model = kwargs.get('save_model', FS.MODEL_DIR+"/SimpleGAN/model.h5")
+        self.tfhandler = kwargs.get('tfhandler', True)
+        self.logdir = str(FS.LOG_DIR+ "/{}").format(time())
+        if self.tfhandler:
+            self.writer = tf.summary.FileWriter(
+                logdir=self.logdir,
+                )
 
         self._log('Compiling generator.', level='info')
         # Generator Network.
@@ -131,17 +141,29 @@ class SimpleGAN(ModelBase):
             x_combined_batch = np.concatenate((legit_images, syntetic_images))
             y_combined_batch = np.concatenate((np.ones((half_batch, 1)),
                                                np.zeros((half_batch, 1))))
-
-            d_loss = self.D.train_on_batch(x_combined_batch,
-                                           y_combined_batch)
-
             # train generator (discriminator training is false by default)
 
             noise = np.random.normal(0, 1, (self.batch_size, 100))
             y_mislabled = np.ones((self.batch_size, 1))
 
+            d_loss = self.D.train_on_batch(x_combined_batch,
+                                            y_combined_batch,)
+
             g_loss = self._model.train_on_batch(noise,
                                                 y_mislabled)
+
+            # write summary to file
+            if self.tfhandler:
+                d_summary = tf.Summary(value=[tf.Summary.Value(tag="d_loss", 
+                                             simple_value=d_loss[0]), ])
+                g_summary = tf.Summary(value=[tf.Summary.Value(tag="g_loss", 
+                                             simple_value=g_loss), ])
+                for i in (d_summary, g_summary):
+                    self.writer.add_summary(i)
+                    self._log("Writing to Tensorflow summary")
+            else:
+                pass
+
 
             self._log(('Epoch: {:,}, [Discriminator :: d_loss: {:.4f}],'
                        '[Generator :: loss: {:.4f}]')

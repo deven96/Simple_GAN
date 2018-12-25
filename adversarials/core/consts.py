@@ -34,6 +34,7 @@ class FS:
     ASSET_DIR = os.path.join(PROJECT_DIR, "assets")
     CACHE_DIR = os.path.join(ASSET_DIR, "cache")
 
+    LOG_DIR = os.path.join(CACHE_DIR, "logs")
     MODEL_DIR = os.path.join(CACHE_DIR, "models")
 
 
