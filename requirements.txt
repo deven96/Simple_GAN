@@ -3,7 +3,7 @@ matplotlib==3.1.0
 tensorflow==1.14.0
 tensorboard==1.14.0
 numpy==1.16.4
-colorlog
+colorlog==4.0.2
 easydict
 pyyaml
 sphinx
