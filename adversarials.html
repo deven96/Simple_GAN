@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>adversarials package &#8212; Adversarials 1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="adversarials-package">
+<h1>adversarials package<a class="headerlink" href="#adversarials-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adversarials.core.html">adversarials.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core.arch">adversarials.core.arch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core.base">adversarials.core.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core.config">adversarials.core.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core.consts">adversarials.core.consts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core.utils">adversarials.core.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.core.html#module-adversarials.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adversarials.tests.html">adversarials.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adversarials.tests.html#module-adversarials.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-adversarials">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adversarials" title="Permalink to this headline">¶</a></h2>
+<p>Adversarial package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: __init__.py
+Created on 20 December, 2018 &#64; 07:20 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.SimpleGAN">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.</code><code class="sig-name descname">SimpleGAN</code><span class="sig-paren">(</span><em class="sig-param">size: Union[Tuple[int], int] = 28, channels: int = 1, batch_size: int = 32, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.SimpleGAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="adversarials.core.html#adversarials.core.base.ModelBase" title="adversarials.core.base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">adversarials.core.base.ModelBase</span></code></a></p>
+<p>Simple Generative Adversarial Network.</p>
+<dl>
+<dt>Methods:</dt><dd><p>def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</p>
+<p>def train(self, X_train, epochs: int=10):</p>
+<dl class="simple">
+<dt>def plot_images(self, samples: int=16, step:int=0):</dt><dd><p># Plot generated images</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><p>G (keras.model.Model): Generator model.
+D (keras.model.Model): Discriminator model.
+model (keras.model.Model): Combined G &amp; D model.
+shape (Tuple[int]): Input image shape.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="adversarials.SimpleGAN.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">n: int = 1</em>, <em class="sig-param">dim: int = 100</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.SimpleGAN.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inference method. Given a random latent sample. Generate an image.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>samples (int, optional): Defaults to 1. Number of images to</dt><dd><p>be generated.</p>
+</dd>
+</dl>
+<p>dim (int, optional): Defaults to 100. Noise dimension.</p>
+</dd>
+<dt>Returns:</dt><dd><p>np.ndarray: Array-like generated images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.SimpleGAN.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="headerlink" href="#adversarials.SimpleGAN.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacked generator-discriminator model.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>keras.model.Model: Combined G &amp; D model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.SimpleGAN.plot_images">
+<code class="sig-name descname">plot_images</code><span class="sig-paren">(</span><em class="sig-param">samples=16</em>, <em class="sig-param">step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.SimpleGAN.plot_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot and generate images</p>
+<p>samples (int, optional): Defaults to 16. Noise samples to generate.
+step (int, optional): Defaults to 0. Number of training step currently.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.SimpleGAN.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#adversarials.SimpleGAN.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input image shape.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Tuple[int]: image shape.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.SimpleGAN.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">X_train</em>, <em class="sig-param">epochs: int = 10</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.SimpleGAN.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train function to be used after GAN initialization</p>
+<p>X_train[np.array]: full set of images to be used</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Adversarials</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Diretnan Domnan, Victor I. Afolabi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/adversarials.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

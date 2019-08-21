@@ -1,0 +1,1120 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>adversarials.core package &#8212; Adversarials 1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="adversarials-core-package">
+<h1>adversarials.core package<a class="headerlink" href="#adversarials-core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-adversarials.core.arch">
+<span id="adversarials-core-arch-module"></span><h2>adversarials.core.arch module<a class="headerlink" href="#module-adversarials.core.arch" title="Permalink to this headline">¶</a></h2>
+<p>Architecture of SimpleGAN for Adversarial package.
+&#64;author</p>
+<blockquote>
+<div><p>Domnan Diretnan
+Artificial Intelligence Enthusiast &amp; Python Developer
+Email: <a class="reference external" href="mailto:diretnandomnan&#37;&#52;&#48;gmail&#46;com">diretnandomnan<span>&#64;</span>gmail<span>&#46;</span>com</a> 
+GitHub: <a class="reference external" href="https://github.com/deven96">https://github.com/deven96</a></p>
+</div></blockquote>
+<dl class="simple">
+<dt>&#64;project</dt><dd><p>File: arch.py</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Domnan Diretnan. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.arch.SimpleGAN">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.arch.</code><code class="sig-name descname">SimpleGAN</code><span class="sig-paren">(</span><em class="sig-param">size: Union[Tuple[int], int] = 28, channels: int = 1, batch_size: int = 32, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.arch.SimpleGAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adversarials.core.base.ModelBase" title="adversarials.core.base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">adversarials.core.base.ModelBase</span></code></a></p>
+<p>Simple Generative Adversarial Network.</p>
+<dl>
+<dt>Methods:</dt><dd><p>def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</p>
+<p>def train(self, X_train, epochs: int=10):</p>
+<dl class="simple">
+<dt>def plot_images(self, samples: int=16, step:int=0):</dt><dd><p># Plot generated images</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><p>G (keras.model.Model): Generator model.
+D (keras.model.Model): Discriminator model.
+model (keras.model.Model): Combined G &amp; D model.
+shape (Tuple[int]): Input image shape.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="adversarials.core.arch.SimpleGAN.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">n: int = 1</em>, <em class="sig-param">dim: int = 100</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.arch.SimpleGAN.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inference method. Given a random latent sample. Generate an image.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>samples (int, optional): Defaults to 1. Number of images to</dt><dd><p>be generated.</p>
+</dd>
+</dl>
+<p>dim (int, optional): Defaults to 100. Noise dimension.</p>
+</dd>
+<dt>Returns:</dt><dd><p>np.ndarray: Array-like generated images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.arch.SimpleGAN.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="headerlink" href="#adversarials.core.arch.SimpleGAN.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacked generator-discriminator model.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>keras.model.Model: Combined G &amp; D model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.arch.SimpleGAN.plot_images">
+<code class="sig-name descname">plot_images</code><span class="sig-paren">(</span><em class="sig-param">samples=16</em>, <em class="sig-param">step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.arch.SimpleGAN.plot_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot and generate images</p>
+<p>samples (int, optional): Defaults to 16. Noise samples to generate.
+step (int, optional): Defaults to 0. Number of training step currently.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.arch.SimpleGAN.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#adversarials.core.arch.SimpleGAN.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input image shape.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Tuple[int]: image shape.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.arch.SimpleGAN.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">X_train</em>, <em class="sig-param">epochs: int = 10</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.arch.SimpleGAN.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train function to be used after GAN initialization</p>
+<p>X_train[np.array]: full set of images to be used</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adversarials.core.base">
+<span id="adversarials-core-base-module"></span><h2>adversarials.core.base module<a class="headerlink" href="#module-adversarials.core.base" title="Permalink to this headline">¶</a></h2>
+<p>Base classes for Adversarial package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: base.py
+Created on 20 December, 2018 &#64; 06:56 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.base.ModelBase">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.base.</code><code class="sig-name descname">ModelBase</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.base.ModelBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">adversarials.core.base._Base</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.base.ModelBase.cache_dir">
+<em class="property">property </em><code class="sig-name descname">cache_dir</code><a class="headerlink" href="#adversarials.core.base.ModelBase.cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.base.ModelBase.call">
+<em class="property">abstract </em><code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.base.ModelBase.call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.base.ModelBase.int_shape">
+<em class="property">static </em><code class="sig-name descname">int_shape</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.base.ModelBase.int_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the shape of tensor or variable as tuple of int or None entries.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (Union[tf.Tensor, tf.Variable]): Tensor or variable. hasattr(x, ‘shape’)</p>
+</dd>
+<dt>Returns:</dt><dd><p>tuple: A tuple of integers (or None entries).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adversarials.core.config">
+<span id="adversarials-core-config-module"></span><h2>adversarials.core.config module<a class="headerlink" href="#module-adversarials.core.config" title="Permalink to this headline">¶</a></h2>
+<p>Configuration file for Adversarial package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: config.py.py
+Created on 20 December, 2018 &#64; 07:07 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.config.Config">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.config.</code><code class="sig-name descname">Config</code><a class="headerlink" href="#adversarials.core.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.config.Config.from_cfg">
+<em class="property">static </em><code class="sig-name descname">from_cfg</code><span class="sig-paren">(</span><em class="sig-param">file: str</em>, <em class="sig-param">ext: str = 'cfg'</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.from_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from an cfg file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): An cfg filename.
+ext (str, optional): Defaults to ‘cfg’. Config file extension.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not an <cite>${ext}</cite> file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.from_json">
+<em class="property">static </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from a json file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): A JSON filename.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not a JSON file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.from_yaml">
+<em class="property">static </em><code class="sig-name descname">from_yaml</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from a YAML file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): A <cite>.yml</cite> or <cite>.yaml</cite> filename.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not a YAML file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.to_cfg">
+<em class="property">static </em><code class="sig-name descname">to_cfg</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.to_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a cfg or ini file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (Any): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.to_json">
+<em class="property">static </em><code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a JSON file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (EasyDict): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.to_pickle">
+<em class="property">static </em><code class="sig-name descname">to_pickle</code><span class="sig-paren">(</span><em class="sig-param">cfg: Any</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.to_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a pickle file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (Any): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.config.Config.to_yaml">
+<em class="property">static </em><code class="sig-name descname">to_yaml</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.config.Config.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a YAML file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (EasyDict): Configuration: as a dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adversarials.core.consts">
+<span id="adversarials-core-consts-module"></span><h2>adversarials.core.consts module<a class="headerlink" href="#module-adversarials.core.consts" title="Permalink to this headline">¶</a></h2>
+<p>Constants for Adversarial package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: consts.py
+Created on 20 December, 2018 &#64; 07:03 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.consts.FS">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.consts.</code><code class="sig-name descname">FS</code><a class="headerlink" href="#adversarials.core.consts.FS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.APP_NAME">
+<code class="sig-name descname">APP_NAME</code><em class="property"> = 'Simple_GAN'</em><a class="headerlink" href="#adversarials.core.consts.FS.APP_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.ASSET_DIR">
+<code class="sig-name descname">ASSET_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets'</em><a class="headerlink" href="#adversarials.core.consts.FS.ASSET_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.CACHE_DIR">
+<code class="sig-name descname">CACHE_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache'</em><a class="headerlink" href="#adversarials.core.consts.FS.CACHE_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.LOG_DIR">
+<code class="sig-name descname">LOG_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache/logs'</em><a class="headerlink" href="#adversarials.core.consts.FS.LOG_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.MODEL_DIR">
+<code class="sig-name descname">MODEL_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache/models'</em><a class="headerlink" href="#adversarials.core.consts.FS.MODEL_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.consts.FS.PROJECT_DIR">
+<code class="sig-name descname">PROJECT_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN'</em><a class="headerlink" href="#adversarials.core.consts.FS.PROJECT_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.consts.SETUP">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.consts.</code><code class="sig-name descname">SETUP</code><a class="headerlink" href="#adversarials.core.consts.SETUP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.consts.SETUP.MODE">
+<code class="sig-name descname">MODE</code><em class="property"> = 'Debug'</em><a class="headerlink" href="#adversarials.core.consts.SETUP.MODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.consts.LOGGER">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.consts.</code><code class="sig-name descname">LOGGER</code><a class="headerlink" href="#adversarials.core.consts.LOGGER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.consts.LOGGER.ROOT">
+<code class="sig-name descname">ROOT</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/adversarials/config/logger/Debug.cfg'</em><a class="headerlink" href="#adversarials.core.consts.LOGGER.ROOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adversarials.core.utils">
+<span id="adversarials-core-utils-module"></span><h2>adversarials.core.utils module<a class="headerlink" href="#module-adversarials.core.utils" title="Permalink to this headline">¶</a></h2>
+<p>Utility file for Adversarial package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: utils.py
+Created on 20 December, 2018 &#64; 07:00 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.utils.File">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.utils.</code><code class="sig-name descname">File</code><a class="headerlink" href="#adversarials.core.utils.File" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.utils.File.get_dirs">
+<em class="property">static </em><code class="sig-name descname">get_dirs</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.File.get_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all directories in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of directories to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>optimize (bool, optional): Defaults to False. Return an generator object,</dt><dd><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of directories in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.File.get_files">
+<em class="property">static </em><code class="sig-name descname">get_files</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.File.get_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all files in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of files to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>optimize (bool, optional): Defaults to False. Return an generator object,</dt><dd><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of files in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.File.listdir">
+<em class="property">static </em><code class="sig-name descname">listdir</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">dirs_only: bool = False</em>, <em class="sig-param">files_only: bool = False</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.File.listdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve files/directories in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of path to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<p>dirs_only (bool, optional): Defaults to False. Return only directories in <cite>path</cite>.
+files_only (bool, optional): Defaults to False. Return only files in <cite>path</cite>.
+optimize (bool, optional): Defaults to False. Return an generator object,</p>
+<blockquote>
+<div><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</div></blockquote>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of directories in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.File.make_dirs">
+<em class="property">static </em><code class="sig-name descname">make_dirs</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">verbose: int = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.File.make_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Directory if it doesn’t exist.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Directory/directories to be created.
+verbose (bool, optional): Defaults to 0. 0 turns of logging,</p>
+<blockquote>
+<div><p>while 1 gives feedback on creation of director(y|ies).</p>
+</div></blockquote>
+</dd>
+<dt>Example:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">&gt;&gt;&gt;</span> <span class="pre">path</span> <span class="pre">=</span> <span class="pre">os.path.join(&quot;path/to&quot;,</span> <span class="pre">&quot;be/created/&quot;)</span>
+<span class="pre">&gt;&gt;&gt;</span> <span class="pre">File.make_dirs(path,</span> <span class="pre">verbose=1)</span>
+<span class="pre">INFO</span>&#160; <span class="pre">|</span>&#160; <span class="pre">&quot;path/to/be/created/&quot;</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">created.</span>
+<span class="pre">`</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.utils.Log">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.utils.</code><code class="sig-name descname">Log</code><a class="headerlink" href="#adversarials.core.utils.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.utils.Log.critical">
+<em class="property">static </em><code class="sig-name descname">critical</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.critical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.debug">
+<em class="property">static </em><code class="sig-name descname">debug</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.error">
+<em class="property">static </em><code class="sig-name descname">error</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.info">
+<em class="property">static </em><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.utils.Log.level">
+<code class="sig-name descname">level</code><em class="property"> = 10</em><a class="headerlink" href="#adversarials.core.utils.Log.level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.log">
+<em class="property">static </em><code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging method avatar based on verbosity.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><a href="#id3"><span class="problematic" id="id4">*</span></a>args</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>verbose (int, optional): Defaults to 1.
+level (int, optional): Defaults to <code class="docutils literal notranslate"><span class="pre">Log.level</span></code>.
+sep (str, optional): Defaults to ” “.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.progress">
+<em class="property">static </em><code class="sig-name descname">progress</code><span class="sig-paren">(</span><em class="sig-param">count: int</em>, <em class="sig-param">max_count: int</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints task progress <em>(in %)</em>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>count {int}: Current progress so far.
+max_count {int}: Total progress length.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.report_hook">
+<em class="property">static </em><code class="sig-name descname">report_hook</code><span class="sig-paren">(</span><em class="sig-param">block_no: int</em>, <em class="sig-param">read_size: bytes</em>, <em class="sig-param">file_size: bytes</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.report_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates download progress given the block number, read size,
+and the total file size of the URL target.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>block_no {int}: Current download state.
+read_size {bytes}: Current downloaded size.
+file_size {bytes}: Total file size.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.setLevel">
+<em class="property">static </em><code class="sig-name descname">setLevel</code><span class="sig-paren">(</span><em class="sig-param">level: int</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.setLevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.utils.Log.warn">
+<em class="property">static </em><code class="sig-name descname">warn</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.utils.Log.warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-adversarials.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-adversarials.core" title="Permalink to this headline">¶</a></h2>
+<p>Adversarial core package.</p>
+<dl class="simple">
+<dt>&#64;author</dt><dd><p>Victor I. Afolabi
+Artificial Intelligence Expert &amp; Software Engineer.
+Email: <a class="reference external" href="mailto:javafolabi&#37;&#52;&#48;gmail&#46;com">javafolabi<span>&#64;</span>gmail<span>&#46;</span>com</a> | <a class="reference external" href="mailto:victor&#46;afolabi&#37;&#52;&#48;zephyrtel&#46;com">victor<span>&#46;</span>afolabi<span>&#64;</span>zephyrtel<span>&#46;</span>com</a>
+GitHub: <a class="reference external" href="https://github.com/victor-iyiola">https://github.com/victor-iyiola</a></p>
+</dd>
+<dt>&#64;project</dt><dd><p>File: __init__.py
+Created on 20 December, 2018 &#64; 06:56 PM.</p>
+</dd>
+<dt>&#64;license</dt><dd><p>MIT License
+Copyright (c) 2018. Victor I. Afolabi. All rights reserved.</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="adversarials.core.SimpleGAN">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">SimpleGAN</code><span class="sig-paren">(</span><em class="sig-param">size: Union[Tuple[int], int] = 28, channels: int = 1, batch_size: int = 32, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.SimpleGAN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adversarials.core.base.ModelBase" title="adversarials.core.base.ModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">adversarials.core.base.ModelBase</span></code></a></p>
+<p>Simple Generative Adversarial Network.</p>
+<dl>
+<dt>Methods:</dt><dd><p>def __init__(self, size: Union[Tuple[int], int]=28, channels: int=1, batch_size: int=32, <a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs)</p>
+<p>def train(self, X_train, epochs: int=10):</p>
+<dl class="simple">
+<dt>def plot_images(self, samples: int=16, step:int=0):</dt><dd><p># Plot generated images</p>
+</dd>
+</dl>
+</dd>
+<dt>Attributes:</dt><dd><p>G (keras.model.Model): Generator model.
+D (keras.model.Model): Discriminator model.
+model (keras.model.Model): Combined G &amp; D model.
+shape (Tuple[int]): Input image shape.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="adversarials.core.SimpleGAN.call">
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">n: int = 1</em>, <em class="sig-param">dim: int = 100</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.SimpleGAN.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inference method. Given a random latent sample. Generate an image.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>samples (int, optional): Defaults to 1. Number of images to</dt><dd><p>be generated.</p>
+</dd>
+</dl>
+<p>dim (int, optional): Defaults to 100. Noise dimension.</p>
+</dd>
+<dt>Returns:</dt><dd><p>np.ndarray: Array-like generated images.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.SimpleGAN.model">
+<em class="property">property </em><code class="sig-name descname">model</code><a class="headerlink" href="#adversarials.core.SimpleGAN.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacked generator-discriminator model.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>keras.model.Model: Combined G &amp; D model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.SimpleGAN.plot_images">
+<code class="sig-name descname">plot_images</code><span class="sig-paren">(</span><em class="sig-param">samples=16</em>, <em class="sig-param">step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.SimpleGAN.plot_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot and generate images</p>
+<p>samples (int, optional): Defaults to 16. Noise samples to generate.
+step (int, optional): Defaults to 0. Number of training step currently.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.SimpleGAN.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#adversarials.core.SimpleGAN.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input image shape.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Tuple[int]: image shape.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.SimpleGAN.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">X_train</em>, <em class="sig-param">epochs: int = 10</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.SimpleGAN.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train function to be used after GAN initialization</p>
+<p>X_train[np.array]: full set of images to be used</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.Log">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">Log</code><a class="headerlink" href="#adversarials.core.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.Log.critical">
+<em class="property">static </em><code class="sig-name descname">critical</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.critical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.debug">
+<em class="property">static </em><code class="sig-name descname">debug</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.error">
+<em class="property">static </em><code class="sig-name descname">error</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.info">
+<em class="property">static </em><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.Log.level">
+<code class="sig-name descname">level</code><em class="property"> = 10</em><a class="headerlink" href="#adversarials.core.Log.level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.log">
+<em class="property">static </em><code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging method avatar based on verbosity.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><a href="#id7"><span class="problematic" id="id8">*</span></a>args</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>verbose (int, optional): Defaults to 1.
+level (int, optional): Defaults to <code class="docutils literal notranslate"><span class="pre">Log.level</span></code>.
+sep (str, optional): Defaults to ” “.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.progress">
+<em class="property">static </em><code class="sig-name descname">progress</code><span class="sig-paren">(</span><em class="sig-param">count: int</em>, <em class="sig-param">max_count: int</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints task progress <em>(in %)</em>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>count {int}: Current progress so far.
+max_count {int}: Total progress length.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.report_hook">
+<em class="property">static </em><code class="sig-name descname">report_hook</code><span class="sig-paren">(</span><em class="sig-param">block_no: int</em>, <em class="sig-param">read_size: bytes</em>, <em class="sig-param">file_size: bytes</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.report_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates download progress given the block number, read size,
+and the total file size of the URL target.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>block_no {int}: Current download state.
+read_size {bytes}: Current downloaded size.
+file_size {bytes}: Total file size.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.setLevel">
+<em class="property">static </em><code class="sig-name descname">setLevel</code><span class="sig-paren">(</span><em class="sig-param">level: int</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.setLevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Log.warn">
+<em class="property">static </em><code class="sig-name descname">warn</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Log.warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.File">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">File</code><a class="headerlink" href="#adversarials.core.File" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.File.get_dirs">
+<em class="property">static </em><code class="sig-name descname">get_dirs</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.File.get_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all directories in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of directories to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>optimize (bool, optional): Defaults to False. Return an generator object,</dt><dd><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of directories in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.File.get_files">
+<em class="property">static </em><code class="sig-name descname">get_files</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.File.get_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all files in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of files to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>optimize (bool, optional): Defaults to False. Return an generator object,</dt><dd><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of files in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.File.listdir">
+<em class="property">static </em><code class="sig-name descname">listdir</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">exclude: Iterable[str] = None</em>, <em class="sig-param">dirs_only: bool = False</em>, <em class="sig-param">files_only: bool = False</em>, <em class="sig-param">optimize: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.File.listdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve files/directories in a given path.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Base directory of path to retrieve.
+exclude (Iterable[str], optional): Defaults to None. List of paths to</p>
+<blockquote>
+<div><p>remove from results.</p>
+</div></blockquote>
+<p>dirs_only (bool, optional): Defaults to False. Return only directories in <cite>path</cite>.
+files_only (bool, optional): Defaults to False. Return only files in <cite>path</cite>.
+optimize (bool, optional): Defaults to False. Return an generator object,</p>
+<blockquote>
+<div><p>to prevent loading all directories in memory, otherwise: return results
+as a normal list.</p>
+</div></blockquote>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: <cite>path</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Union[Generator[str], List[str]]: Generator expression if optimization is turned on,</dt><dd><p>otherwise list of directories in given path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.File.make_dirs">
+<em class="property">static </em><code class="sig-name descname">make_dirs</code><span class="sig-paren">(</span><em class="sig-param">path: str</em>, <em class="sig-param">verbose: int = 0</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.File.make_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Directory if it doesn’t exist.</p>
+<dl>
+<dt>Args:</dt><dd><p>path (str): Directory/directories to be created.
+verbose (bool, optional): Defaults to 0. 0 turns of logging,</p>
+<blockquote>
+<div><p>while 1 gives feedback on creation of director(y|ies).</p>
+</div></blockquote>
+</dd>
+<dt>Example:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">&gt;&gt;&gt;</span> <span class="pre">path</span> <span class="pre">=</span> <span class="pre">os.path.join(&quot;path/to&quot;,</span> <span class="pre">&quot;be/created/&quot;)</span>
+<span class="pre">&gt;&gt;&gt;</span> <span class="pre">File.make_dirs(path,</span> <span class="pre">verbose=1)</span>
+<span class="pre">INFO</span>&#160; <span class="pre">|</span>&#160; <span class="pre">&quot;path/to/be/created/&quot;</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">created.</span>
+<span class="pre">`</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.ModelBase">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">ModelBase</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.ModelBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">adversarials.core.base._Base</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.ModelBase.cache_dir">
+<em class="property">property </em><code class="sig-name descname">cache_dir</code><a class="headerlink" href="#adversarials.core.ModelBase.cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.ModelBase.call">
+<em class="property">abstract </em><code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.ModelBase.call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.ModelBase.int_shape">
+<em class="property">static </em><code class="sig-name descname">int_shape</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.ModelBase.int_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the shape of tensor or variable as tuple of int or None entries.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (Union[tf.Tensor, tf.Variable]): Tensor or variable. hasattr(x, ‘shape’)</p>
+</dd>
+<dt>Returns:</dt><dd><p>tuple: A tuple of integers (or None entries).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.Config">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">Config</code><a class="headerlink" href="#adversarials.core.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="adversarials.core.Config.from_cfg">
+<em class="property">static </em><code class="sig-name descname">from_cfg</code><span class="sig-paren">(</span><em class="sig-param">file: str</em>, <em class="sig-param">ext: str = 'cfg'</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.from_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from an cfg file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): An cfg filename.
+ext (str, optional): Defaults to ‘cfg’. Config file extension.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not an <cite>${ext}</cite> file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.from_json">
+<em class="property">static </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from a json file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): A JSON filename.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not a JSON file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.from_yaml">
+<em class="property">static </em><code class="sig-name descname">from_yaml</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration from a YAML file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (str): A <cite>.yml</cite> or <cite>.yaml</cite> filename.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: File is not a YAML file.
+FileNotFoundError: <cite>file</cite> was not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>easydict.EasyDict: config dictionary object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.to_cfg">
+<em class="property">static </em><code class="sig-name descname">to_cfg</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.to_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a cfg or ini file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (Any): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.to_json">
+<em class="property">static </em><code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a JSON file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (EasyDict): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.to_pickle">
+<em class="property">static </em><code class="sig-name descname">to_pickle</code><span class="sig-paren">(</span><em class="sig-param">cfg: Any</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.to_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a pickle file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (Any): Configuration: as dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="adversarials.core.Config.to_yaml">
+<em class="property">static </em><code class="sig-name descname">to_yaml</code><span class="sig-paren">(</span><em class="sig-param">cfg: easydict.EasyDict</em>, <em class="sig-param">file: str</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#adversarials.core.Config.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save configuration object into a YAML file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cfg (EasyDict): Configuration: as a dictionary instance.
+file (str): Path to write the configuration to.</p>
+</dd>
+<dt>Keyword Args:</dt><dd><p>Passed into <cite>dumper</cite>.</p>
+</dd>
+<dt>Raises:</dt><dd><p>AssertionError: <cite>dumper</cite> must be callable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.FS">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">FS</code><a class="headerlink" href="#adversarials.core.FS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.FS.APP_NAME">
+<code class="sig-name descname">APP_NAME</code><em class="property"> = 'Simple_GAN'</em><a class="headerlink" href="#adversarials.core.FS.APP_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.FS.ASSET_DIR">
+<code class="sig-name descname">ASSET_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets'</em><a class="headerlink" href="#adversarials.core.FS.ASSET_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.FS.CACHE_DIR">
+<code class="sig-name descname">CACHE_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache'</em><a class="headerlink" href="#adversarials.core.FS.CACHE_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.FS.LOG_DIR">
+<code class="sig-name descname">LOG_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache/logs'</em><a class="headerlink" href="#adversarials.core.FS.LOG_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.FS.MODEL_DIR">
+<code class="sig-name descname">MODEL_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/assets/cache/models'</em><a class="headerlink" href="#adversarials.core.FS.MODEL_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="adversarials.core.FS.PROJECT_DIR">
+<code class="sig-name descname">PROJECT_DIR</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN'</em><a class="headerlink" href="#adversarials.core.FS.PROJECT_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.LOGGER">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">LOGGER</code><a class="headerlink" href="#adversarials.core.LOGGER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.LOGGER.ROOT">
+<code class="sig-name descname">ROOT</code><em class="property"> = '/home/travis/build/deven96/Simple_GAN/adversarials/config/logger/Debug.cfg'</em><a class="headerlink" href="#adversarials.core.LOGGER.ROOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="adversarials.core.SETUP">
+<em class="property">class </em><code class="sig-prename descclassname">adversarials.core.</code><code class="sig-name descname">SETUP</code><a class="headerlink" href="#adversarials.core.SETUP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="adversarials.core.SETUP.MODE">
+<code class="sig-name descname">MODE</code><em class="property"> = 'Debug'</em><a class="headerlink" href="#adversarials.core.SETUP.MODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Adversarials</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Diretnan Domnan, Victor I. Afolabi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/adversarials.core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
