@@ -6,13 +6,13 @@ Subpackages
 
 .. toctree::
 
-    adversarials.core
-    adversarials.tests
+   adversarials.core
+   adversarials.tests
 
 Module contents
 ---------------
 
 .. automodule:: adversarials
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
