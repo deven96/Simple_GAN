@@ -5,5 +5,5 @@ tensorboard
 numpy
 colorlog
 easydict
-pyyaml
+pyyaml==6.0.2
 sphinx
