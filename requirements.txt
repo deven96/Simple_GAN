@@ -1,7 +1,7 @@
 keras
 matplotlib
 tensorflow
-tensorboard
+tensorboard==2.20.0
 numpy
 colorlog
 easydict
