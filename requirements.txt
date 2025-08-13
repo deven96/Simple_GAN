@@ -1,5 +1,5 @@
 keras
-matplotlib
+matplotlib==3.10.5
 tensorflow
 tensorboard
 numpy
