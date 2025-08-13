@@ -6,4 +6,4 @@ numpy
 colorlog
 easydict
 pyyaml
-sphinx
+sphinx==8.3.0
