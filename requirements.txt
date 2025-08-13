@@ -3,7 +3,7 @@ matplotlib
 tensorflow
 tensorboard
 numpy
-colorlog
+colorlog==6.9.0
 easydict
 pyyaml
 sphinx
