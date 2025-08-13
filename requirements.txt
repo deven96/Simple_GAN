@@ -1,4 +1,4 @@
-keras
+keras==3.11.2
 matplotlib
 tensorflow
 tensorboard
