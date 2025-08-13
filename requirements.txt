@@ -4,6 +4,6 @@ tensorflow
 tensorboard
 numpy
 colorlog
-easydict
+easydict==1.13
 pyyaml
 sphinx
